@@ -16,13 +16,23 @@ pipeline {
                 }
             }
         }
-        stage("build") {
+        stage("build jar") {
             steps {
                 script {
                     gv.buildApp()
                 }
             }
         }
+
+
+        stage("build image") {
+            steps {
+                script {
+                    gv.buildImage()
+                }
+            }
+        }
+
         stage("test") {
             when {
                 expression {
