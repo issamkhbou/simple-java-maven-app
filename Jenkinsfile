@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
-@Library(''jenkins_shared_library)
+@Library('jenkins_shared_library')
 def gv
 
 pipeline {
@@ -28,7 +28,7 @@ pipeline {
         stage("build jar") {
             when{
                 expression{
-                    BRANCH_NAME=="master"
+                    BRANCH_NAME=="jenkins_shared_lib"
                 }
             }
             steps {
@@ -41,13 +41,13 @@ pipeline {
 
             when{
                 expression{
-                    BRANCH_NAME=="master"
+                    BRANCH_NAME=="jenkins_shared_lib"
                 }
             }
 
             steps {
                 script {
-                    buildImage()
+                    buildImage "issam97docker/jenkins_test:JMA3.0"
                 } 
             }
         }
@@ -55,7 +55,7 @@ pipeline {
 
             when{
                 expression{
-                    BRANCH_NAME=="master"
+                    BRANCH_NAME=="jenkins_shared_lib"
                 }
             }
 
