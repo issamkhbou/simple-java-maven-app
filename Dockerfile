@@ -6,4 +6,4 @@ copy ./target/my-app-*.jar /usr/app/
 
 workdir /usr/app 
 
-entrypoint ["java","-jar","my-app-*.jar"] 
+CMD java -jar my-app-*.jar
