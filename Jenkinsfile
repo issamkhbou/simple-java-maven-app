@@ -46,6 +46,15 @@ pipeline {
                 }
             }
         }
+
+        stage('Checkout') {
+            steps {
+                git branch: ${BRANCH_NAME},
+                    url: 'git@github.com:issamkhbou/simple-java-maven-app.git',
+                    credentialsId: 'jenkins-private-keys'
+            }
+        }
+
         stage('commit version update') {
             steps {
                 script {
@@ -55,7 +64,7 @@ pipeline {
                         sh 'git config --global user.email "jenkins@example.com"'
                         sh 'git config --global user.name "jenkins"'
 
-                        sh "git remote set-url origin git@github.com:issamkhbou/simple-java-maven-app.git" 
+                        //sh "git remote set-url origin git@github.com:issamkhbou/simple-java-maven-app.git" 
                         sh 'git add .'
                         sh 'git commit -m "ci: version bump"'
                         sh "git push origin HEAD:${BRANCH_NAME}"
