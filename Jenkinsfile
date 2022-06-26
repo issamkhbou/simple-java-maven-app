@@ -16,6 +16,7 @@ pipeline {
                     def matcher = readFile('pom.xml') =~ '<version>(.+)</version>'
                     def version = matcher[0][1]
                     env.IMAGE_NAME = "$version-$BUILD_NUMBER"
+                    echo "IMAGE_NAME ====>  ${IMAGE_NAME}"
                 }
             }
         }
@@ -49,7 +50,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch: "${BRANCH_NAME}",
+                git branch: ${BRANCH_NAME},
                     url: 'git@github.com:issamkhbou/simple-java-maven-app.git',
                     credentialsId: 'jenkins-private-keys'
             }
@@ -63,7 +64,9 @@ pipeline {
                         // git config here for the first time run
                         sh 'git config --global user.email "jenkins@example.com"'
                         sh 'git config --global user.name "jenkins"'
-
+                        sh 'git status'
+                        sh 'ls -l'
+                        sh 'pwd'
                         //sh "git remote set-url origin git@github.com:issamkhbou/simple-java-maven-app.git" 
                         sh 'git add .'
                         sh 'git commit -m "ci: version bump"'
