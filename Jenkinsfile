@@ -50,7 +50,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch: ${BRANCH_NAME},
+                git branch: "${BRANCH_NAME}",
                     url: 'git@github.com:issamkhbou/simple-java-maven-app.git',
                     credentialsId: 'jenkins-private-keys'
             }
