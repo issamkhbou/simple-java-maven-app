@@ -6,6 +6,15 @@ pipeline {
         maven 'maven3.8'
     }
     stages {
+
+        stage('Checkout') {
+            steps {
+                git branch: "${BRANCH_NAME}",
+                    url: 'git@github.com:issamkhbou/simple-java-maven-app.git',
+                    credentialsId: 'jenkins-private-keys'
+            }
+        } 
+
         stage('increment version') {
             steps {
                 script {
@@ -50,13 +59,7 @@ pipeline {
             }
         }
 
-        /* stage('Checkout') {
-            steps {
-                git branch: "${BRANCH_NAME}",
-                    url: 'git@github.com:issamkhbou/simple-java-maven-app.git',
-                    credentialsId: 'jenkins-private-keys'
-            }
-        } */
+        
 
         stage('commit version update') {
             steps {
@@ -67,7 +70,7 @@ pipeline {
                         sh 'git config --global user.email "jenkins@example.com"'
                         sh 'git config --global user.name "jenkins"'
                         sh 'git status'
-                        //sh "git remote set-url origin git@github.com:issamkhbou/simple-java-maven-app.git" 
+                        sh "git remote set-url origin git@github.com:issamkhbou/simple-java-maven-app.git" 
                         sh 'git add .'
                         sh 'git commit -m "ci: version bump"'
                         sh "git push origin HEAD:${BRANCH_NAME}"
