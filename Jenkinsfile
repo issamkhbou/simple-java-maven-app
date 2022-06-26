@@ -25,6 +25,8 @@ pipeline {
                 script {
                     echo "building the application..."
                     sh 'mvn clean package'
+                    sh 'ls -l '
+                    sh " cat pom.xml"
                 }
             }
         }
@@ -48,13 +50,13 @@ pipeline {
             }
         }
 
-        stage('Checkout') {
+        /* stage('Checkout') {
             steps {
                 git branch: "${BRANCH_NAME}",
                     url: 'git@github.com:issamkhbou/simple-java-maven-app.git',
                     credentialsId: 'jenkins-private-keys'
             }
-        }
+        } */
 
         stage('commit version update') {
             steps {
@@ -65,8 +67,6 @@ pipeline {
                         sh 'git config --global user.email "jenkins@example.com"'
                         sh 'git config --global user.name "jenkins"'
                         sh 'git status'
-                        sh 'ls -l'
-                        sh 'pwd'
                         //sh "git remote set-url origin git@github.com:issamkhbou/simple-java-maven-app.git" 
                         sh 'git add .'
                         sh 'git commit -m "ci: version bump"'
